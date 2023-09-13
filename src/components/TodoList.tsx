@@ -1,22 +1,28 @@
-import { Todo } from "@/db/schema";
+import { Todo, db, todoTable } from "@/db/schema";
 import React from "react";
 import DeleteBtn from "./DeleteBtn";
 
 const getTasks = async () => {
-   try {
-      const res = await fetch("/api/todo", {
-         method: "GET",
-         cache: "no-store",
-      });
-      if (!res.ok) throw new Error("Failed to fetch data");
-      return await res.json();
-   } catch (err) {
-      console.log(err);
-   }
+   // try {
+   //    const res = await fetch("/api/todo", {
+   //       method: "GET",
+   //       cache: "no-store",
+   //       headers: {
+   //          'Content-type': 'application/json'
+   //       }
+   //    });
+   //    if (!res.ok) throw new Error("Failed to fetch data");
+   //    return await res.json();
+   // } catch (err) {
+   //    console.log(err);
+   // }
+   const res = await db.select().from(todoTable);
+   console.log(res);
+   return res;
 };
 
 const TodoList = async () => {
-   const { data }: { data: Todo[] } = await getTasks();
+   const data = await getTasks();
 
    return (
       <div className="flex flex-col gap-4 max-h-[20rem] overflow-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-slate-600 scrollbar-thumb-rounded">
