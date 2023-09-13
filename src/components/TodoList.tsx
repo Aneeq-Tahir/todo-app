@@ -4,7 +4,7 @@ import DeleteBtn from "./DeleteBtn";
 
 const getTasks = async () => {
    try {
-      const res = await fetch("http:localhost:3000/api/todo", {
+      const res = await fetch("/api/todo", {
          method: "GET",
          cache: "no-store",
       });
